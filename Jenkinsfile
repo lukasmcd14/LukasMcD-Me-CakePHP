@@ -11,6 +11,9 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'cp -rf * /var/www/beta.lukasmcd.me/'
+        sh '''cd /var/www/beta.lukasmcd.me
+composer install'''
+        sh 'chown -R www-data:www-data /var/www/beta.lukasmcd.me/*'
       }
     }
 
