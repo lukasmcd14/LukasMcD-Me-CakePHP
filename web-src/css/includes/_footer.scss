@@ -1,0 +1,65 @@
+@import "variables";
+@import "mixins";
+
+/*
+ *TODO Fix height issue on mobile where the footer
+ * isn't the right height causing contents to overlap
+ */
+
+footer.page-footer {
+	width: 100%;
+	min-height: 100px;
+
+	font-weight: 700;
+	color: $nav-text-colour;
+	background-color: $nav-background-colour;
+
+	display: flex;
+	align-items: center;
+	flex-flow: column nowrap;
+	padding: 5px 0 5px;
+
+	@include lg {
+		min-height: 0;
+	}
+
+	@include lg {
+		margin: 5px 0 0;
+		justify-content: space-between;
+		flex-flow: row nowrap;
+	}
+
+	div {
+		padding: 10px 5px;
+		flex: 1 1 0;
+		display: block;
+
+		@include sm {
+			padding: 5px;
+		}
+	}
+
+	.socials {
+		display: flex;
+		flex-grow: 1.5;
+
+		align-items: center;
+		justify-content: center;
+		flex-flow: row nowrap;
+
+		a:not(:last-child) {
+			border-right: #FFFFFF 2px solid;
+		}
+	}
+
+	.made-with-love {
+		text-align: right;
+	}
+
+	a {
+		padding: 5px;
+		text-decoration: none;
+		text-underline: none;
+		color: $nav-text-colour;
+	}
+}

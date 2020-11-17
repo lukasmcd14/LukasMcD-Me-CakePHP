@@ -1,0 +1,17 @@
+// Main
+
+$theme-primary: #121212;
+$theme-secondary: #272727;
+
+$text-colour: #FFFFFF;
+
+// Navigation elements
+
+$nav-text-colour: #FFFFFF;
+$nav-background-colour: $theme-primary;
+
+// Cards
+
+$card-text-color: #FFFFFF;
+$card-background-color: lighten($theme-primary, 5%);
+$card-footer-border: $theme-secondary;

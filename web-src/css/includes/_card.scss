@@ -1,0 +1,44 @@
+@import "variables";
+
+.card-holder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	background-color: $card-background-color;
+
+	color: $card-text-color;
+
+	.card-header {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		text-align: center;
+	}
+
+	.card-body {
+		flex: 1 1 auto;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.card-footer {
+		border-top: 2px solid $card-footer-border;
+		height: 40px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		* {
+			display: inline-block;
+			flex-grow: 1;
+			height: 100%;
+			width: 100%;
+		}
+	}
+}
