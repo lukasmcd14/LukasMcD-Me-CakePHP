@@ -8,5 +8,11 @@ pipeline {
       }
     }
 
+    stage('Deploy') {
+      steps {
+        sh 'cp -rf * /var/www/beta.lukasmcd.me/'
+      }
+    }
+
   }
 }
