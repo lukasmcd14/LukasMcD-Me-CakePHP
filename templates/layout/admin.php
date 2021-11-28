@@ -20,15 +20,22 @@
 </head>
 <body>
 
-<div class="top-bar">Hello <a class="menu-toggle" href="javascript:toggleMenu()"><span class="material-icons">menu</span></a></div>
+<div class="top-bar">
+    Admin
+    <a class="menu-toggle" href="javascript:toggleMenu()">
+        <span class="material-icons">menu</span>
+    </a>
+</div>
 
 <div class="page-wrapper">
     <div id="menu-wrapper">
         <?= $this->element('admin-menu') ?>
     </div>
-    <div class="admin-page">
-        <?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
+    <div class="admin-page-wrapper">
+        <div class="admin-page">
+            <?= $this->Flash->render() ?>
+            <?= $this->fetch('content') ?>
+        </div>
     </div>
 </div>
 

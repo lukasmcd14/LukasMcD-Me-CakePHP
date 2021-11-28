@@ -1,20 +1,28 @@
-form div.post-meta {
+div.input.text, div.input.textarea {
   display: flex;
   flex-direction: column; }
+
+form div.post-meta {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap; }
   @media only screen and (min-width: 576px) {
     form div.post-meta {
       flex-direction: row; } }
-  form div.post-meta div {
-    margin: 10px; }
-    form div.post-meta div.post-thumbnail {
-      flex-grow: 1; }
-      form div.post-meta div.post-thumbnail img {
-        max-width: 100%;
-        max-height: 300px;
-        /*@include sm {
-                        max-width: 480px;
-                    }*/ }
-    form div.post-meta div.post-info {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1; }
+  form div.post-meta div.post-thumbnail {
+    flex-grow: 1;
+    padding-right: 10px; }
+    @media only screen and (min-width: 576px) {
+      form div.post-meta div.post-thumbnail {
+        max-width: 400px; } }
+    form div.post-meta div.post-thumbnail img {
+      width: 100%;
+      max-width: 100%; }
+      @media only screen and (min-width: 576px) {
+        form div.post-meta div.post-thumbnail img {
+          max-width: 480px;
+          max-height: 300px; } }
+  form div.post-meta div.post-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; }

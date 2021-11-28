@@ -1,10 +1,15 @@
 @import "includes/mixins";
 @import "includes/icons";
+@import "includes/variables";
+
+$top-bar-height: 48px;
 
 body {
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
 
     a {
         text-decoration: none;
@@ -16,43 +21,78 @@ body {
     }
 
     div.top-bar {
+        // Setup flexbox to space the items to opposite ends and center them vertically
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        height: 40px;
+
+        background-color: $theme-primary;
+
+        //box-shadow: 0 10px black;
+        box-shadow: 0 0 6px 6px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+
+        padding: 10px;
+        max-height: $top-bar-height;
         max-width: 100vw;
+
+        // Show the menu toggle button to the right
+        a.menu-toggle {
+            visibility: visible;
+
+            // Hide the menu toggle button if the screen is big enough to just show the menu constantly
+            @include sm {
+                visibility: hidden;
+            }
+        }
     }
 
     div.page-wrapper {
         display: flex;
         flex-direction: row;
+        min-height: calc(100vh - #{$top-bar-height});
+        max-height: calc(100vh - #{$top-bar-height});
 
         div#menu-wrapper {
-            flex-grow: 1;
+            // Hide the menu by default and set it's position to the top left corner.
             visibility: hidden;
-            position: absolute; // When in mobile view, position the menu over everything else
+            position: absolute;
             top: 0;
             left: 0;
+
+            // Setup Flexbox
             display: flex;
+            flex-grow: 1;
             flex-direction: column;
+
             z-index: 100;
             padding: 10px;
+
+            // Set the maximum height and width accounting for the padding on every edge
             width: calc(100% - 20px);
             min-height: calc(100vh - 20px);
+            max-height: calc(100vh + #{$top-bar-height});
 
-            background-color: #3d3d3d;
+            // Show the scrollbar if the screen is too short
+            overflow-y: auto;
 
+            background-color: $theme-secondary;
+
+            // If the screen is big enough, show the menu constantly and position it next to the page contents
             @include sm {
+                z-index: 0;
                 visibility: visible;
                 position: relative;
+                min-height: calc(100vh - #{$top-bar-height} - 20px); // Remove bar and padding offset
                 max-width: 200px;
             }
 
+            // If the menu is active make it visible and stop hiding the menu toggle button
             &.active {
                 visibility: visible;
 
-                > a.menu-toggle {
+                a.menu-toggle {
                     visibility: visible;
 
                     @include sm {
@@ -61,7 +101,7 @@ body {
                 }
             }
 
-            > a.menu-toggle {
+            a.menu-toggle {
                 visibility: hidden;
             }
 
@@ -70,16 +110,57 @@ body {
                 flex-direction: row;
                 justify-content: space-between;
             }
-            ul.admin-menu {
 
+            ul.admin-menu {
+                display: flex;
+                flex-direction: column;
+                list-style-type: none;
+                padding: 0;
+
+                li.has-dropdown {
+                    cursor: pointer;
+                    ul.dropdown {
+                        li {
+                            display: none;
+                        }
+
+                        &.expanded {
+                            li {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+
+                * {
+                    text-align: left;
+                }
+                li {
+                    ul {
+                        list-style-type: none;
+
+                        li {
+                            float: left;
+                        }
+                    }
+                }
             }
         }
 
-        div.admin-page {
-            background-color: rgba(166,166,166,0.76);
+        div.admin-page-wrapper {
+            padding: 15px;
+            overflow-y: auto;
+            background-color: rgba(166, 166, 166, 0.76);
             flex-grow: 2;
+            display: flex;
+            justify-content: center;
 
-            max-width: 100%;
+            height: calc(100vh - #{$top-bar-height} - 30px);
+
+            div.admin-page {
+                max-width: 1000px;
+                width: 100%;
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ class ProjectsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('ProjectBodies', [
+        $this->belongsTo('ProjectBody', [
             'foreignKey' => 'body_id',
             'joinType' => 'INNER',
         ]);
@@ -77,8 +77,7 @@ class ProjectsTable extends Table
         $validator
             ->scalar('createdby')
             ->maxLength('createdby', 36)
-            ->requirePresence('createdby', 'create')
-            ->notEmptyString('createdby');
+            ->allowEmptyString('createdby');
 
         $validator
             ->scalar('tags')
@@ -113,7 +112,7 @@ class ProjectsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('body_id', 'ProjectBodies'), ['errorField' => 'body_id']);
+        $rules->add($rules->existsIn('body_id', 'ProjectBody'), ['errorField' => 'body_id']);
 
         return $rules;
     }

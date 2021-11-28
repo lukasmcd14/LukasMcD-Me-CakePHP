@@ -23,6 +23,7 @@ class ProjectBody extends Entity
      * @var array
      */
     protected $_accessible = [
+        'id' => true,
         'body' => true,
     ];
 }

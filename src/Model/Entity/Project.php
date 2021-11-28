@@ -12,12 +12,14 @@ use Cake\ORM\Entity;
  * @property string $title
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $edited
- * @property string $createdby
+ * @property string|null $createdby
  * @property string|null $tags
  * @property string|null $slug
  * @property string|null $thumbnail
  * @property string $description
  * @property int $body_id
+ *
+ * @property \App\Model\Entity\ProjectBody $project_body
  */
 class Project extends Entity
 {
@@ -40,5 +42,6 @@ class Project extends Entity
         'thumbnail' => true,
         'description' => true,
         'body_id' => true,
+        'project_body' => true,
     ];
 }

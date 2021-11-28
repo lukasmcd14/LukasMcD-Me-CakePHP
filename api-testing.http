@@ -1,3 +1,33 @@
+POST http://localhost:3000/admin/new-post
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="thumbnail"; filename="file.png"
+
+< yugedude.png
+--WebAppBoundary--
+Content-Disposition: form-data; name="title"
+
+cum
+--WebAppBoundary--
+Content-Disposition: form-data; name="description"
+
+cum
+--WebAppBoundary--
+Content-Disposition: form-data; name="body"
+
+cum
+--WebAppBoundary--
+Content-Disposition: form-data; name="slug"
+
+cum
+--WebAppBoundary--
+Content-Disposition: form-data; name="tags"
+
+cum
+--WebAppBoundary--
+
+###
 POST http://localhost:3000/api/upload
 Accept: application/json
 Content-Type: multipart/form-data; boundary=WebAppBoundary
@@ -6,5 +36,5 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 Content-Disposition: form-data; name="image"; filename="yogadides.png"
 Content-Type: image/png
 
-< ./yogadides.png
+< ./yogadude.png
 --WebAppBoundary--

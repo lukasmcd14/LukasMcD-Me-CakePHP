@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Project $post
  */
 
 $this->assign('title', 'New Post');
@@ -10,32 +11,26 @@ $this->Html->css("new-post.min", ['block' => true])
 ?>
 
 
-<form id='post' method="post">
-    <div class="post-meta">
-        <div class="post-thumbnail">
-            <div>
-                <label for="thumbnail">Thumbnail</label>
-                <input id="thumbnail" name="thumbnail" type="file">
-            </div>
-            <!-- TODO Fix the sizing on the image so it doesn't look fucked -->
-            <img id="thumbnail-preview" src="/imgs/upload_an_image.png">
-        </div>
-        <div class="post-info">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text">
-            <label for="tags">Tags</label>
-            <input id="tags" name="tags" type="text">
-            <label for="slug">Slug</label>
-            <input id="slug" name="slug" type="text">
-        </div>
+<?= $this->Form->create($post, ["id" => "post", 'enctype' => 'multipart/form-data']) ?>
+<div class="post-meta">
+    <div class="post-thumbnail">
+        <?= $this->Form->control("thumbnail", ['type' => 'file', 'id' => 'thumbnail']) ?>
+        <img id="thumbnail-preview" alt="Shitty placeholder image" src="/imgs/upload_an_image.png">
     </div>
+    <div class="post-info">
+        <?= $this->Form->control("title", ['value' => 'cum']) ?>
+        <?= $this->Form->control("tags", ['value' => 'cum']) ?>
+        <?= $this->Form->control("slug", ['type' => 'text', 'value' => 'cum']) ?>
+        <?= $this->Form->control("description", ['type' => 'textarea', 'value' => 'cum']) ?>
+    </div>
+</div>
+<br>
+<div class="post-body">
+    <?= $this->Form->control("body", ['type' => 'textarea', 'id' => 'editor', 'value' => 'cum']) ?>
+</div>
 
-    <br>
-    <label for="editor">Body:</label>
-    <textarea id="editor" name="body"></textarea>
-
-    <input id='save' type="button" value="Save">
-</form>
+<?= $this->Form->button("Save", ['type' => 'button', 'id' => 'save']) ?>
+<?= $this->Form->end() ?>
 
 <?= $this->Html->script("tinymce/tinymce.min", ['block' => false]); ?>
 <?= $this->Html->script("admin-add", ['block' => false]); ?>
