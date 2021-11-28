@@ -55,6 +55,7 @@ class ProjectsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\ProjectsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

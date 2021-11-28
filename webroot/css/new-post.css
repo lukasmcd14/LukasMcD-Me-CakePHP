@@ -1,0 +1,20 @@
+form div.post-meta {
+  display: flex;
+  flex-direction: column; }
+  @media only screen and (min-width: 576px) {
+    form div.post-meta {
+      flex-direction: row; } }
+  form div.post-meta div {
+    margin: 10px; }
+    form div.post-meta div.post-thumbnail {
+      flex-grow: 1; }
+      form div.post-meta div.post-thumbnail img {
+        max-width: 100%;
+        max-height: 300px;
+        /*@include sm {
+                        max-width: 480px;
+                    }*/ }
+    form div.post-meta div.post-info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; }

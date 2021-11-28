@@ -20,7 +20,9 @@
 </head>
 <body>
 <?= $this->Flash->render() ?>
+
 <?= $this->fetch('content') ?>
+
 <?= $this->fetch('script') ?>
 </body>
 </html>

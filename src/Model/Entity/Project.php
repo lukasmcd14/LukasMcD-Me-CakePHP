@@ -12,11 +12,12 @@ use Cake\ORM\Entity;
  * @property string $title
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $edited
+ * @property string $createdby
  * @property string|null $tags
- * @property string $slug
+ * @property string|null $slug
  * @property string|null $thumbnail
- * @property string|null $description
- * @property string $body
+ * @property string $description
+ * @property int $body_id
  */
 class Project extends Entity
 {
@@ -33,10 +34,11 @@ class Project extends Entity
         'title' => true,
         'created' => true,
         'edited' => true,
+        'createdby' => true,
         'tags' => true,
         'slug' => true,
         'thumbnail' => true,
         'description' => true,
-        'body' => true,
+        'body_id' => true,
     ];
 }

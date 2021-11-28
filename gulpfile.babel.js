@@ -14,8 +14,14 @@ import phpConnect from "gulp-connect-php";
 const paths = {
     scripts: {
         src: {
-            typescript: "web-src/scripts/*.ts",
-            other: "web-src/scripts/*.js"
+            typescript: "web-src/scripts/**/*.ts",
+            other: "web-src/scripts/**/*.js"
+        },
+        dest: "webroot/js/"
+    },
+    script_styles: {
+        src: {
+            other: "web-src/scripts/**/*.css"
         },
         dest: "webroot/js/"
     },
@@ -26,6 +32,18 @@ const paths = {
         },
         dest: "webroot/css/"
     },
+    images: {
+        src: {
+            images: "web-src/imgs/**/*.*"
+        },
+        dest: "webroot/imgs/"
+    },
+    fonts: {
+        src: {
+            fonts: "web-src/font/**/*.*"
+        },
+        dest: "webroot/font/"
+    },
     app: {
         src: "**/*.php"
     }
@@ -35,6 +53,11 @@ const paths = {
 
 function clean() {
     return del([paths.scripts.dest, paths.styles.dest]);
+}
+
+function script_styles() {
+    return gulp.src(paths.script_styles.src.other, {sourcemaps: false})
+        .pipe(gulp.dest(paths.script_styles.dest));
 }
 
 function scripts() {
@@ -56,6 +79,16 @@ function styles() {
         .pipe(gulp.dest(paths.styles.dest));
 }
 
+function images() {
+    return gulp.src(paths.images.src.images, {sourcemaps: true})
+        .pipe(gulp.dest(paths.images.dest));
+}
+
+function fonts() {
+    return gulp.src(paths.fonts.src.fonts, {sourcemaps: true})
+        .pipe(gulp.dest(paths.fonts.dest));
+}
+
 function scss() {
     return gulp.src(paths.styles.src.sass, {sourcemaps: true})
         .pipe(sass().on("error", sass.logError))
@@ -69,7 +102,8 @@ function serve(cb) {
     phpConnect.server({
         base: "./webroot",
         port: 8765,
-        keepalive: true
+        keepalive: true,
+        bin: '/usr/local/Cellar/php/8.0.13/bin/php'
     });
     browserSync.init({
         proxy: "localhost:8765",
@@ -95,14 +129,19 @@ function unlink(filepath) {
 function watch() {
     gulp.watch(paths.styles.src.sass, gulp.series(scss, reload)).on("unlink", unlink);
     gulp.watch(paths.styles.src.other, gulp.series(styles, reload)).on("unlink", unlink);
+
     gulp.watch(paths.scripts.src.typescript, gulp.series(typescript, reload)).on("unlink", unlink);
     gulp.watch(paths.scripts.src.other, gulp.series(scripts, reload)).on("unlink", unlink);
+
+    gulp.watch(paths.script_styles.src.other, gulp.series(script_styles, reload)).on("unlink", unlink);
+    gulp.watch(paths.images.src.images, gulp.series(images, reload)).on("unlink", unlink);
+    gulp.watch(paths.fonts.src.fonts, gulp.series(fonts, reload)).on("unlink", unlink);
     gulp.watch(paths.app.src, gulp.series(reload));//.on("unlink", unlink);
     // gulp.watch(paths.templates.src, gulp.series(reload)).on("unlink", unlink);
 }
 
-export const build = gulp.series(clean, scripts, typescript, scss, styles);
-export const autobuild = gulp.series(clean, scripts, typescript, scss, styles, gulp.parallel(watch));
+export const build = gulp.series(clean, scripts, script_styles, fonts, images, typescript, scss, styles);
+export const autobuild = gulp.series(clean, scripts, script_styles, fonts, images, typescript, scss, styles, gulp.parallel(watch));
 
 export const dev = gulp.series(build, serve, gulp.parallel(watch));
 

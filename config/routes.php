@@ -53,8 +53,11 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/', ['controller' => 'Site', 'action' => 'index']);
 
     $builder->connect('/projects', ['controller' => 'Projects', 'action' => 'index']);
-    $builder->connect('/projects/:slug', ['controller' => 'Projects', 'action' => 'view'])
+    $builder->connect('/projects/{slug}', ['controller' => 'Projects', 'action' => 'view'])
         ->setPass(['slug']);
+
+    $builder->connect('/admin/{action}', ['controller' => 'Admin']);
+    $builder->connect('/api/{action}', ['controller' => 'Api']);
 
     /*
      * Connect catchall routes for all controllers.

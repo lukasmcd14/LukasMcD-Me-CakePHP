@@ -45,8 +45,9 @@ class ProjectsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->addBehavior('Muffin/Slug.Slug', [
-            'maxLength' => 255
+        $this->belongsTo('ProjectBodies', [
+            'foreignKey' => 'body_id',
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -59,12 +60,12 @@ class ProjectsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->nonNegativeInteger('id')
+            ->integer('id')
             ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('title')
-            ->maxLength('title', 240)
+            ->maxLength('title', 255)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
 
@@ -74,32 +75,46 @@ class ProjectsTable extends Table
             ->notEmptyDateTime('edited');
 
         $validator
+            ->scalar('createdby')
+            ->maxLength('createdby', 36)
+            ->requirePresence('createdby', 'create')
+            ->notEmptyString('createdby');
+
+        $validator
             ->scalar('tags')
-            ->maxLength('tags', 16777215)
+            ->maxLength('tags', 500)
             ->allowEmptyString('tags');
 
         $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
-            ->requirePresence('slug', 'create')
-            ->notEmptyString('slug');
+            ->allowEmptyString('slug');
 
         $validator
             ->scalar('thumbnail')
-            ->maxLength('thumbnail', 16777215)
+            ->maxLength('thumbnail', 500)
             ->allowEmptyString('thumbnail');
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 16777215)
-            ->allowEmptyString('description');
-
-        $validator
-            ->scalar('body')
-            ->maxLength('body', 4294967295)
-            ->requirePresence('body', 'create')
-            ->notEmptyString('body');
+            ->maxLength('description', 400)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('body_id', 'ProjectBodies'), ['errorField' => 'body_id']);
+
+        return $rules;
     }
 }
